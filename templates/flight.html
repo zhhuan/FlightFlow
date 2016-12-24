@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Flight详细信息</title>
+	<link rel="stylesheet" type="text/css" href="../static/timetable.css">
+</head>
+<body>
+	<div class="wrapper">
+
+		<h1 class="big">航班详细信息</h1>
+		<div>
+			<h2 class="middle">飞机信息</h2>
+			<ul class="list-group">
+				<li class="list-group-item">航空公司：{{general.Name}}</li>
+				<li class="list-group-item">机型：{{general.Aircraft}}</li>
+				<li class="list-group-item">航班状态：{{general.Status}}</li>
+				<li class="list-group-item">飞行距离：{{general.Duration}}</li>
+				<li class="list-group-item">餐食：{{general.Food}}</li>
+			</ul>
+		</div>
+
+		<div>
+
+			<div>
+				<h2 class="middle">离开</h2>
+				<div class="table">
+					<div class="row header blue">
+						<div class="cell">起飞机场</div>
+						<div class="cell">实际起飞时间</div>
+						<div class="cell">起飞日期</div>
+					</div>
+
+					<div class="row">
+						<div class="cell">{{ departure.Airport }}</div>
+						<div class="cell">{{ departure.Time }}</div>
+						<div class="cell">{{ departure.ScheduledTime }}</div>
+					</div>
+				</div>
+			</div>
+
+			<div>
+				<h2 class="middle">到达</h2>
+				<div class="table">
+					<div class="row header green">
+						<div class="cell">到达机场</div>
+						<div class="cell">实际到达时间</div>
+						<div class="cell">到达日期</div>
+					</div>
+					<div class="row">
+						<div class="cell">{{ arrive.Airport }}</div>
+						<div class="cell">{{ arrive.Time }}</div>
+						<div class="cell">{{ arrive.ScheduledTime }}</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<link rel="stylesheet" type="text/css" href="../static/route.css">
+</head>
+<body>
+	<div class="wrapper">
+		<div class="table">
+			<div class="row header">
+				<div class="cell">
+				  航空公司/航班/机型
+				</div>
+				<div class="cell">
+				  起降时间
+				</div>
+				<div class="cell">
+				  机场
+				</div>
+				<div class="cell">
+				  准点率
+				</div>
+			</div>
+			{% for row in search_results %}
+			<div class="row">
+				<div class="cell">{{ row['title'] }}</div>
+				<div class="cell">{{ row['time'] }}</div>
+				<div class="cell">{{ row['airport'] }}</div>
+				<div class="cell">{{ row['punctuality'] }}</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,182 @@
+﻿*,
+*:before,
+*:after {
+	box-sizing: border-box;
+}
+
+ol,ul {
+	list-style:none;
+}
+
+.wrapper {
+	background: pink;
+	padding: 10px;
+}
+
+header {
+	background:#333;
+	padding: 10px;
+	height: 220px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.headerContainer {
+	width: 970px;
+}
+
+.headerTop {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+
+.logoLeft {
+	padding: 10px;
+}
+
+.flightIcon {
+	width: 200px;
+	height: 80px;
+}
+
+.headerSearchForm {
+	background: grey;
+	display: flex;
+	width: 650px;
+	min-height: 40px;
+	justify-content: space-around;
+	align-items: center;
+}
+
+select {
+	color: #333;
+	border: none;
+	padding: 5px;
+	font-size: 12px;
+	font-family: Georgia, "Times New Roman", "Microsoft YaHei", "微软雅黑",
+    STXihei, "华文细黑", serif;
+}
+
+input {
+	color:#333;
+	border:none;
+	padding:5px;
+	margin: 0 5px;
+	font-size:14px;
+}
+
+.inputSubmit,
+#home-left button {
+	background-color:#CD5153;
+	border:2px solid white;
+	color:white;
+	padding:5px;
+	font-size:12px;
+	transition:all 150ms ease-in-out;
+}
+
+select,input,button{
+	border-radius:3px;
+	letter-spacing:1.2pt;
+}
+
+.hide {
+	display: none;
+}
+
+.searchOption[data-fa-search-type="routeSearch"] form {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+
+
+.navigation {
+	background: grey;
+	padding: 10px;   
+	display: flex;
+	justify-content:space-around;
+}
+
+.navigation li{
+	padding: 10px;
+	margin: 0 10px;
+}
+
+.navigation li a {
+	text-decoration:none;
+	color: blue;
+	font: 15px Georgia,   STXihei, "华文细黑", serif;
+
+}
+
+.pageContainer {
+	background: yellow;
+	padding: 10px;
+	display: flex;
+}
+
+#home-left {
+	background: white;
+	padding: 10px;
+	flex: 0 1 300px;
+}
+
+
+.leftInput {
+    position: relative;
+    height: 36px;
+    line-height: 36px;
+    font-size: 14px;
+    margin-bottom: 10px;
+    border: 2px solid #e1e1e1;
+}
+
+.leftInput .spot {
+    float:left;
+    height: 26px;
+    line-height: 26px;
+    margin-top: 5px;
+    padding: 0 10px;
+    border-right: 1px solid #eaeaea;
+}
+
+.ontimeButton {
+	height: 36px;
+	line-height: 36px;
+}
+
+.inline {
+	display: inline-block;
+}
+
+
+.timetableInput input{
+	width: 60px;
+}
+
+
+#home-right {
+	background: grey;
+	padding: 10px;
+	flex: 1 1 auto;
+}
+
+.location circle{
+	fill:#e38d13;
+}
+
+#tooltip {
+	width: 80px;
+	height: 30px;
+	font:15px  "Microsoft Yahei",serif ;
+	color: #fff;
+	background: #ce8483;
+	border: 1px solid #3b3b3b;
+	border-radius:3px;
+
+}
