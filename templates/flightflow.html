@@ -1,12 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>FlightFlow-航班流量监控</title>
-    <link rel="icon" href="../static/favicon.ico" type="image/x-icon" >
+{% extends "base.html" %}
+{% block title %}index{% endblock %}
+{% block head %}
+    {{ super() }}
     <link rel="stylesheet" type="text/css" href="../static/flightflow.css">
-</head>
-<body>
+{% endblock %}
+
+{% block body %}
     <div class="wrapper">
         <header>
             <div class="headerContainer">
@@ -110,10 +109,6 @@
 						<button type="submit">时刻表查询</button>
 					</div>
                 </form>
-				<form method="post">
-					{{form.username(class="leftInput")}}
-					{{form.submit(class="inputSubmit")}}
-				</form>
             </div>
 
             <div id="home-right">
@@ -122,5 +117,4 @@
     </div>
     <script src="http://d3js.org/d3.v3.min.js"></script>
     <script src="../static/flightflow.js"></script>
-</body>
-</html>
+{% endblock %}

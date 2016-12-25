@@ -1,12 +1,34 @@
 # -*- coding:utf-8 -*-
 
-from flask import Flask,render_template,request,session,url_for,redirect
+from flask import Flask,render_template,request,session,url_for,redirect,flash
 from flask.ext.wtf import Form
-from wtforms import SubmitField,StringField
-from wtforms.validators import Required
+from wtforms import SubmitField,StringField,PasswordField,BooleanField
+from wtforms.validators import Required,Length
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
+from wtforms.widgets.core import html_params
+from wtforms.widgets import HTMLString
 
+class InlineButtonWidget(object):
+    """
+    Render a basic ``<button>`` field.
+    """
+    input_type = 'submit'
+    html_params = staticmethod(html_params)
+
+    def __call__(self, field, **kwargs):
+        kwargs.setdefault('id', field.id)
+        kwargs.setdefault('type', self.input_type)
+        kwargs.setdefault('value', field.label.text)
+        return HTMLString('<button %s>' % self.html_params(name=field.name, **kwargs))
+
+
+class InlineSubmitField(BooleanField):
+    """
+    Represents an ``<button type="submit">``.  This allows checking if a given
+    submit button has been pressed.
+    """
+    widget = InlineButtonWidget()
 
 
 app = Flask(__name__)
@@ -21,16 +43,16 @@ class routeSearch(Form):
     arrival = StringField(validators=[Required()])
     submit = SubmitField('查询')
 
-class logform(Form):
+class LoginForm(Form):
     username = StringField(validators=[Required()])
-    submit = SubmitField('登陆')
+    password = PasswordField(validators=[Required()])
+    submit = SubmitField('Login in')
 
 @app.route('/',methods=['GET','POST'])
 def index():
-    username = None
     omniform = omniSearch()
     routeform = routeSearch()
-    form = logform()
+    
     if omniform.validate_on_submit():
         session['searchText'] = omniform.searchText.data
         searchFlight = session.get('searchText')
@@ -79,12 +101,22 @@ def index():
             search_results.append(one)
         return render_template('route.html',search_results = search_results)
 
-    if form.validate_on_submit():
-        session['username'] = form.username.data
-        return redirect(url_for('index'))
 
     return render_template('flightflow.html',omniform = omniform,routeform = routeform,\
-                           form = form,name=session.get('username'))
+                           name=session.get('username'))
+
+
+
+@app.route('/login',methods=['GET','POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        old_name = session.get('username')
+        session['username'] = form.username.data
+        session['password'] = form.password.data
+        return redirect(url_for('index'))
+    return render_template('login.html',form = form,name = session.get('username'))
+
 
 
 if __name__ == "__main__":

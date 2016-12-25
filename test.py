@@ -17,4 +17,5 @@ print(soup.body)
 # for detail in details:
 #     print(detail.get_text())
 
-
+name="u",
+name="p",
