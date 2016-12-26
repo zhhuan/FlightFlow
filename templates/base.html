@@ -5,74 +5,72 @@
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %} - FlightFlow</title>
     <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="../static/flightflow.css">
     {% endblock %}
 </head>
 
 <body>
     {% block body %}
-        {% block navbar %}
+        {% block header %}
         <header>
-            <div class="headerContainer">
-                <div class="headerTop">   
-                    <div class="logoLeft">
-                        <a href="#"><img src="../static/flight.png" alt="flightflow" class="flightIcon"></a>
+            <div class="headerTop flex-center">   
+                <div class="logoLeft">
+                    <a href="#"><img src="../static/flight.png" alt="flightflow" class="flightIcon"></a>
+                </div>
+
+                <div class="headerSearchForm flex-center">
+                    <div class="search_in">
+                        <select class="trackSelect">
+                            <option value="airlineSearch">航班</option>
+                            <option value="routeSearch">航线</option>
+                          <!--   <option value="airportSearch">机场</option> -->
+                        </select>
                     </div>
 
-                    <div class="headerSearchForm">
-                        <div class="search_in">
-                            <select class="trackSelect">
-                                <option value="omniSearch">全部</option>
-                                <option value="airlineSearch">航班</option>
-                                <option value="routeSearch">航线</option>
-                                <option value="airportSearch">机场</option>
-                            </select>
-                        </div>
+                    <div id="airlineSearch" data-fa-search-type="airlineSearch" class="searchOption active">
+                        <form  method="post" class="flex-center">
+                            {{ omniform.hidden_tag() }}
+                            {{ omniform.searchText(placeholder="航班号(如：MF1062)")}}
+                            {{ omniform.submit(class="inputSubmit" )}}
+                        </form>
+                    </div>
 
-                        <div id="omniSearch" data-fa-search-type="omniSearch" class="searchOption active">
-                            <form id="omnisearch_form" method="post">
-                                {{ omniform.hidden_tag() }}
-                                {{ omniform.searchText(placeholder="搜索航班、机场或城市")}}
-                                {{ omniform.submit(class="inputSubmit" )}}
-                            </form>
-                        </div>
 
-                        <div id="airlineSearch" data-fa-search-type="airlineSearch" class="searchOption  hide">
-                            <form method="post">
-                                {{ omniform.hidden_tag() }}
-                                {{ omniform.searchText(placeholder="航班号(如：MF1062)")}}
-                                {{ omniform.submit(class="inputSubmit" )}}
-                            </form>
-                        </div>
+                    <div id="routeSearch" data-fa-search-type="routeSearch" class="searchOption hide" >
+                        <form method="post" class="flex-center">
+                            {{ routeform.hidden_tag() }}
+                            {{ routeform.departure(placeholder="始发地 (如: Beijing)")}}
+                            <div class="route_swap">
+                                <img alt="Swap" src="http://e1.flightcdn.com/images/home_main/swap_icon.png ">
+                            </div>
+                            {{ routeform.arrival(placeholder="目的地 (如: Shanghai)")}}
+                            {{ routeform.submit(class="inputSubmit" )}}
+                        </form>
+                    </div>
 
-                        <div data-fa-search-type="routeSearch" class="searchOption hide" >
-                            <form method="post">
-                                {{ routeform.hidden_tag() }}
-                                {{ routeform.departure(placeholder="始发地 (如: Beijing)")}}
-                                <div class="route_swap">
-                                    <img alt="Swap" src="http://e1.flightcdn.com/images/home_main/swap_icon.png ">
-                                </div>
-                                {{ routeform.arrival(placeholder="目的地 (如: Shanghai)")}}
-                                {{ routeform.submit(class="inputSubmit" )}}
-                            </form>
-                        </div>
+                    <!-- <div id="airportSearch" data-fa-search-type="airportSearch" class="searchOption hide" >
+                        <form method="post" class="flex-center">
+                            {{ omniform.searchText(placeholder="机场代码(如：PEK)")}}
+                            {{ omniform.submit(class="inputSubmit" )}}
+                        </form>
+                    </div> -->
 
-                        <div id="airportSearch" data-fa-search-type="airportSearch" class="searchOption hide" >
-                            <form method="post">
-                                {{ omniform.searchText(placeholder="机场代码(如：PEK)")}}
-                                {{ omniform.submit(class="inputSubmit" )}}
-                            </form>
-                        </div>
+                </div>    
+            </div>
 
-                    </div>    
-                </div>
-
-                <div class="headerBottom">
-                    <ul class="navigation">
-                        <li><a href="#">机场流量查询</a></li>
-                        <li><a href="login.html">登陆/</a><a href="register.html">注册</a></li>
-                        <li>Hello,{% if name %}{{ name }}{% else %}Stranger{% endif %}!</li>
-                    </ul>
-                </div>
+            <div class="headerBottom">
+                <nav class="navigation flex-center">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Flow</a></li>
+                    <li><a href="login.html">登陆/</a><a href="register.html">注册</a></li>
+                    <li><a href="#">
+                        {% if name %}
+                            {{ name }}
+                        {% else %}
+                            Stranger
+                        {% endif %}!</a>
+                    </li>
+                </nav>
             </div>
         </header>
         {% endblock %}
@@ -89,7 +87,9 @@
         {% block page_content %}{% endblock %}
         </div>
         {% endblock %}
-
+        {% block script %}
+          <script src="../static/flightflow.js"></script>
+        {% endblock %}
     {% endblock %}
 </body>
 </html>

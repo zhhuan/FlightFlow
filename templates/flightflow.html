@@ -2,119 +2,56 @@
 {% block title %}index{% endblock %}
 {% block head %}
     {{ super() }}
-    <link rel="stylesheet" type="text/css" href="../static/flightflow.css">
 {% endblock %}
 
 {% block body %}
-    <div class="wrapper">
-        <header>
-            <div class="headerContainer">
-                <div class="headerTop">   
-                    <div class="logoLeft">
-                        <a href="#"><img src="../static/flight.png" alt="flightflow" class="flightIcon"></a>
-                    </div>
-
-                    <div class="headerSearchForm">
-                        <div class="search_in">
-                            <select class="trackSelect">
-                                <option value="omniSearch">全部</option>
-                                <option value="airlineSearch">航班</option>
-                                <option value="routeSearch">航线</option>
-                                <option value="airportSearch">机场</option>
-                            </select>
-                        </div>
-
-                        <div id="omniSearch" data-fa-search-type="omniSearch" class="searchOption active">
-                            <form id="omnisearch_form" method="post">
-                                {{ omniform.hidden_tag() }}
-                                {{ omniform.searchText(placeholder="搜索航班、机场或城市")}}
-								{{ omniform.submit(class="inputSubmit" )}}
-                            </form>
-                        </div>
-
-                        <div id="airlineSearch" data-fa-search-type="airlineSearch" class="searchOption  hide">
-                            <form method="post">
-								{{ omniform.hidden_tag() }}
-								{{ omniform.searchText(placeholder="航班号(如：MF1062)")}}
-								{{ omniform.submit(class="inputSubmit" )}}
-                            </form>
-                        </div>
-
-                        <div data-fa-search-type="routeSearch" class="searchOption hide" >
-							<form method="post">
-								{{ routeform.hidden_tag() }}
-								{{ routeform.departure(placeholder="始发地 (如: Beijing)")}}
-								<div class="route_swap">
-									<img alt="Swap" src="http://e1.flightcdn.com/images/home_main/swap_icon.png ">
-								</div>
-								{{ routeform.arrival(placeholder="目的地 (如: Shanghai)")}}
-								{{ routeform.submit(class="inputSubmit" )}}
-							</form>
-                        </div>
-
-                        <div id="airportSearch" data-fa-search-type="airportSearch" class="searchOption hide" >
-                            <form method="post">
-								{{ omniform.searchText(placeholder="机场代码(如：PEK)")}}
-								{{ omniform.submit(class="inputSubmit" )}}
-                            </form>
-                        </div>
-
-                    </div>    
+    {% block header %}
+        {{ super() }}
+    {% endblock %}
+    <div class="pageContainer">
+        <div id="home-left">
+            <form class="ontimeSearch">
+                <div class="leftInput">
+                    <span class="spot">航班号</span>
+                    <input type="text" placeholder="航班号(如450)">
                 </div>
-
-                <div class="headerBottom">
-                    <ul class="navigation">
-                        <li><a href="#">机场流量查询</a></li>
-						<li><a href="login.html">登陆/</a><a href="register.html">注册</a></li>
-                        <li>Hello,{% if name %}{{ name }}{% else %}Stranger{% endif %}!</li>
-                    </ul>
+                <div class="leftInput">
+                    <span class="spot">时间</span>
+                    <input type="text" placeholder="yyyy-mm-dd">
                 </div>
-            </div>
-        </header>
+                <div class="ontimeButton">
+                    <button type="submit">正晚点查询</button>
+                </div>
+            </form>
+            <form class="timetableSearch">
+				<div class="timetableInput">
+                    <div class="leftInput inline">
+                        <span class="spot">出发</span>
+                        <input type="text" >
+                    </div>
+                    <div class="route_swap inline">
+                        <img alt="Swap" src="http://e1.flightcdn.com/images/home_main/swap_icon.png ">
+                    </div>
+                    <div class="leftInput inline">
+                        <span class="spot">到达</span>
+                        <input type="text" >
+                    </div>
+				</div>
+				<div class="leftInput">
+					<span class="spot">时间</span>
+					<input type="text" placeholder="yyyy-mm-dd">
+				</div>
+				<div class="timetableButton">
+					<button type="submit">时刻表查询</button>
+				</div>
+            </form>
+        </div>
+        <div id="home-right"> 
 
-        <div class="pageContainer">
-            <div id="home-left">
-                <form class="ontimeSearch">
-                    <div class="leftInput">
-                        <span class="spot">航班号</span>
-                        <input type="text" placeholder="航班号(如450)">
-                    </div>
-                    <div class="leftInput">
-                        <span class="spot">时间</span>
-                        <input type="text" placeholder="yyyy-mm-dd">
-                    </div>
-                    <div class="ontimeButton">
-                        <button type="submit">正晚点查询</button>
-                    </div>
-                </form>
-                <form class="timetableSearch">
-					<div class="timetableInput">
-                        <div class="leftInput inline">
-                            <span class="spot">出发</span>
-                            <input type="text" >
-                        </div>
-                        <div class="route_swap inline">
-                            <img alt="Swap" src="http://e1.flightcdn.com/images/home_main/swap_icon.png ">
-                        </div>
-                        <div class="leftInput inline">
-                            <span class="spot">到达</span>
-                            <input type="text" >
-                        </div>
-					</div>
-					<div class="leftInput">
-						<span class="spot">时间</span>
-						<input type="text" placeholder="yyyy-mm-dd">
-					</div>
-					<div class="timetableButton">
-						<button type="submit">时刻表查询</button>
-					</div>
-                </form>
-            </div>
-
-            <div id="home-right">
-            </div>
         </div>
     </div>
+    {% block script %}
+        {{ super() }}
     <script src="http://d3js.org/d3.v3.min.js"></script>
-    <script src="../static/flightflow.js"></script>
+    {% endblock %}
 {% endblock %}

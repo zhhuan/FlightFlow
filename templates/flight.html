@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Flight详细信息</title>
-	<link rel="stylesheet" type="text/css" href="../static/route.css">
-</head>
-<body>
+{% extends "base.html" %}
+{% block title %}route{% endblock %}
+{% block head %}
+    {{ super() }}
+	<link type="text/css" href="../static/route.css" rel="stylesheet">
+{% endblock %}
+{% block body %}
+    {% block header %}
+        {{ super() }}
+    {% endblock %}
 	<div class="wrapper">
-
 		<h1 class="big">航班详细信息</h1>
 		<div>
 			<h2 class="middle">飞机信息</h2>
@@ -58,5 +61,4 @@
 		</div>
 
 	</div>
-</body>
-</html>
+{% endblock %}}

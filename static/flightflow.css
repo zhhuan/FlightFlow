@@ -1,131 +1,187 @@
 ﻿*,
 *:before,
 *:after {
-	box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 ol,ul {
-	list-style:none;
+    list-style:none;
 }
 
-.wrapper {
-	background: pink;
-	padding: 10px;
+body {
+    margin: 0;
 }
 
+/*header*/
 header {
-	background:#333;
-	padding: 10px;
-	height: 220px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.headerContainer {
-	width: 970px;
+    position: relative;
+    width: 100%;
+    height: 170px;
+    background:#e1dbc4;
+    overflow: hidden;
 }
 
 .headerTop {
-	display: flex;
-	justify-content: flex-start;
-	align-items: center;
+    width: 100%;
+    height: 120px;
 }
 
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+/*flightlogo*/
 .logoLeft {
-	padding: 10px;
+    position: absolute;
+    left: 0px;
 }
 
 .flightIcon {
-	width: 200px;
-	height: 80px;
+    width: 180px;
+    height: 150px;
 }
 
+
+/*big SearchForm*/
 .headerSearchForm {
-	background: grey;
-	display: flex;
-	width: 650px;
-	min-height: 40px;
-	justify-content: space-around;
-	align-items: center;
+    width: 700px;
+    height: 60px;
+    margin: 0 auto;
+}
+
+.flex-space {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/*select box*/
+.search_in {
+    width: 80px;
+    padding: 2px 5px;
+    margin-right: 20px;
+    border: 1px solid #d3d3d3;
+    border-radius: 5px;
+    background: rgba(244,244,244,79);
 }
 
 select {
-	color: #333;
-	border: none;
-	padding: 5px;
-	font-size: 12px;
-	font-family: Georgia, "Times New Roman", "Microsoft YaHei", "微软雅黑",
+    color: #333;
+    border: none;
+    padding: 6px;
+    font: 14px/14px Georgia, "Times New Roman", "Microsoft YaHei", "微软雅黑",
     STXihei, "华文细黑", serif;
 }
 
+/*input box*/
 input {
-	color:#333;
-	border:none;
-	padding:5px;
-	margin: 0 5px;
-	font-size:14px;
-}
-
-.inputSubmit,
-#home-left button {
-	background-color:#CD5153;
-	border:2px solid white;
-	color:white;
-	padding:5px;
-	font-size:12px;
-	transition:all 150ms ease-in-out;
-}
-
-select,input,button{
-	border-radius:3px;
-	letter-spacing:1.2pt;
+    color:#333;
+    border:none;
+    padding:5px;
+    margin: 0 5px;
+    font-size:14px;
 }
 
 .hide {
-	display: none;
+    display: none;
 }
 
-.searchOption[data-fa-search-type="routeSearch"] form {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+.searchOption {
+    width: 430px;
+    padding: 2px 5px;
+    border: 1px solid #d3d3d3;
+    border-radius: 10px;
+    box-shadow:0 4px 9px rgba(0,0,0,.37);
+    background: rgba(244,244,244,79);
+}
+
+.searchOption input[type="text"] {
+    font:12px/12px 'HelveticaNeue', Helvetica, Arial, sans-serif;
+    margin-right: 5px;
+    padding: 10px;
+    border: none;
+    border-radius: 9px;
+    box-shadow: 0 0 4px rgba(0,0,0,.4) inset, 1px 1px 1px rgba(255,255,255,.75);
+    background:#fefefe;
+}
+
+.searchOption[data-fa-search-type="airlineSearch"] input[type="text"] {
+    width: 300px;
+}
+
+.searchOption[data-fa-search-type="routeSearch"] input[type="text"] {
+    width: 165px;
+}
+
+.searchOption input[type="submit"] {
+    width:100px;
+    cursor: pointer;
+    font: 13px/13px 'HelveticaNeue', Helvetica, Arial, sans-serif;
+    color:#fff;    
+    padding: 10px;
+    border: none;
+    border-radius: 9px;
+    box-shadow: 0 0 2px #2692dd inset;
+    background: linear-gradient(to bottom, rgba(52,173,236,1) 0%,rgba(38,145,220,1) 100%);
 }
 
 
+.inputSubmit,
+#home-left button {
+    background-color:#CD5153;
+    border:2px solid white;
+    color:white;
+    padding:5px;
+    font-size:12px;
+    transition:all 150ms ease-in-out;
+}
 
+select,input,button{
+    border-radius:3px;
+    letter-spacing:1.2pt;
+}
+
+
+/*hearder navigation */
 .navigation {
-	background: grey;
-	padding: 10px;   
-	display: flex;
-	justify-content:space-around;
+   position: absolute;
+   bottom: 0;
+   width: 100%;
+   height: 50px;
+   background-color: rgba(0,0,0,0.1);
 }
 
 .navigation li{
-	padding: 10px;
-	margin: 0 10px;
+    display: inline-block;
+    text-align: center;
+    padding: 10px 15px;
+    border-radius: 2px;
+}
+
+.navigation li:hover {
+    box-shadow: 0 0 0 1px #fff;
 }
 
 .navigation li a {
-	text-decoration:none;
-	color: blue;
-	font: 15px Georgia,   STXihei, "华文细黑", serif;
-
+    color: #666;
+    text-decoration:none;
+    font: 15px/1.0  "Microsoft Yahei","华文细黑", serif;
 }
 
+/*body content*/
 .pageContainer {
-	background: yellow;
-	padding: 10px;
-	display: flex;
+    background: yellow;
+    padding: 10px;
+    display: flex;
 }
 
 #home-left {
-	background: white;
-	padding: 10px;
-	flex: 0 1 300px;
+    background: white;
+    padding: 10px;
+    flex: 0 1 300px;
 }
-
 
 .leftInput {
     position: relative;
@@ -146,37 +202,35 @@ select,input,button{
 }
 
 .ontimeButton {
-	height: 36px;
-	line-height: 36px;
+    height: 36px;
+    line-height: 36px;
 }
 
 .inline {
-	display: inline-block;
+    display: inline-block;
 }
-
 
 .timetableInput input{
-	width: 60px;
+    width: 60px;
 }
 
-
 #home-right {
-	background: grey;
-	padding: 10px;
-	flex: 1 1 auto;
+    background: grey;
+    padding: 10px;
+    flex: 1 1 auto;
 }
 
 .location circle{
-	fill:#e38d13;
+    fill:#e38d13;
 }
 
 #tooltip {
-	width: 80px;
-	height: 30px;
-	font:15px  "Microsoft Yahei",serif ;
-	color: #fff;
-	background: #ce8483;
-	border: 1px solid #3b3b3b;
-	border-radius:3px;
+    width: 80px;
+    height: 30px;
+    font:15px  "Microsoft Yahei",serif ;
+    color: #fff;
+    background: #ce8483;
+    border: 1px solid #3b3b3b;
+    border-radius:3px;
 
 }

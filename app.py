@@ -77,8 +77,8 @@ def index():
             'ScheduledTime': details[9].get_text().strip()[5:16]
         }
 
-        return render_template('flight.html',general = flight_general,departure = flight_departure \
-                         ,arrive = flight_arrive)
+        return render_template('flight.html',general = flight_general,departure = flight_departure ,arrive = flight_arrive \
+                               ,omniform=omniform, routeform=routeform,name=session.get('username'))
 
     if routeform.validate_on_submit():
         session['departure_city'] = routeform.departure.data
@@ -99,7 +99,8 @@ def index():
             one['punctuality'] = result.find('span',{'class':'c4'}).get_text()
             print(one['punctuality'])
             search_results.append(one)
-        return render_template('route.html',search_results = search_results)
+        return render_template('route.html',search_results = search_results, \
+            omniform=omniform, routeform=routeform,name=session.get('username'))
 
 
     return render_template('flightflow.html',omniform = omniform,routeform = routeform,\
@@ -112,10 +113,12 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         old_name = session.get('username')
+        if old_name is not None and old_name != form.username.data:
+            flash('Looks like you have changed your name!')
         session['username'] = form.username.data
         session['password'] = form.password.data
         return redirect(url_for('index'))
-    return render_template('login.html',form = form,name = session.get('username'))
+    return render_template('login.html',form = form)
 
 
 
