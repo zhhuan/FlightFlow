@@ -35,12 +35,13 @@ header {
 /*flightlogo*/
 .logoLeft {
     position: absolute;
-    left: 0px;
+    left: 60px;
 }
 
 .flightIcon {
     width: 180px;
-    height: 150px;
+    height: 130px;
+    border-radius: 50%;
 }
 
 

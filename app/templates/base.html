@@ -4,8 +4,8 @@
     {% block head %}
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %} - FlightFlow</title>
-    <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="../static/flightflow.css">
+    <link rel="icon" href="../app/static/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="../app/static/flightflow.css">
     {% endblock %}
 </head>
 
@@ -15,7 +15,7 @@
         <header>
             <div class="headerTop flex-center">   
                 <div class="logoLeft">
-                    <a href="#"><img src="../static/flight.png" alt="flightflow" class="flightIcon"></a>
+                    <a href="#"><img src="../app/static/flight.png" alt="flightflow" class="flightIcon"></a>
                 </div>
 
                 <div class="headerSearchForm flex-center">
@@ -77,18 +77,14 @@
         
         {% block content %}
         <div class="container">
-            {% for message in get_flashed_messages() %}
             <div class="alert alert-warning">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                {{ message }}
+                <button type="button" class="close" data-dismiss="alert">&times;</button>  
             </div>
-            {% endfor %}
-
         {% block page_content %}{% endblock %}
         </div>
         {% endblock %}
         {% block script %}
-          <script src="../static/flightflow.js"></script>
+          <script src="../app/static/flightflow.js"></script>
         {% endblock %}
     {% endblock %}
 </body>

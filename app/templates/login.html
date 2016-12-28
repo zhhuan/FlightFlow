@@ -3,11 +3,17 @@
 <head>
 	<meta charset="UTF-8">
 	<title>login</title>
-	<link type="text/css" rel="stylesheet" href="../static/login.css">
+	<link type="text/css" rel="stylesheet" href="../app/static/login.css">
 </head>
 <body>
 	<div class="login">
-		<h1>Welcome</h1>
+		<h1 class="alert">
+		{% for message in get_flashed_messages() %}
+			{{ message }}
+		{% else %} 
+			Welcome
+		</h1>
+		{% endfor %}
 		<form method="post">
 			<!--{{form.hidden_tag() }}-->
 			{{form.csrf_token }}

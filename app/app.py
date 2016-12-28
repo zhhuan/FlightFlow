@@ -1,13 +1,20 @@
 # -*- coding:utf-8 -*-
 
 from flask import Flask,render_template,request,session,url_for,redirect,flash
-from flask.ext.wtf import Form
+from flask_script import Manager,Shell
+from flask_wtf import Form
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate,MigrateCommand
+from flask_mail import Mail,Message
 from wtforms import SubmitField,StringField,PasswordField,BooleanField
 from wtforms.validators import Required,Length
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 from wtforms.widgets.core import html_params
 from wtforms.widgets import HTMLString
+from threading import Thread
+import os
+import logging
 
 class InlineButtonWidget(object):
     """
@@ -33,6 +40,64 @@ class InlineSubmitField(BooleanField):
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'hard to guess string'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://johan:123456@localhost:3306/flightflow'
+app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
+app.config['MAIL_SERVER'] = 'smtp.126.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+app.config['MAIL_USERNAME'] = 'huan_zhong2@126.com'
+app.config['MAIL_PASSWORD'] = 'zh520596'
+app.config['FLASKY_MAIL_SUBJECT_PREFIX'] = '[Flasky]'
+app.config['FLASKY_MAIL_SENDER'] = '<huan_zhong2@126.com>'
+app.config['FLASKY_ANDMIN'] = '13251183@bjtu.edu.cn'
+
+# 把程序实例作为参数传给构造函数，初始化主类的实例
+manager = Manager(app)
+db = SQLAlchemy(app)
+migrate = Migrate(app,db)
+mail = Mail(app)
+
+# 为shell命令添加一个上下文
+
+def make_shell_context():
+    return dict(app = app, db = db, User = User, Role = Role)
+
+def send_async_email(app, msg):
+    with app.app_context():
+        mail.send(msg)
+
+def send_email(to, subject, template, **kwargs):
+    msg = Message(app.config['FLASKY_MAIL_SUBJECT_PREFIX'] + subject,
+    sender=app.config['FLASKY_MAIL_SENDER'], recipients=[to])
+    msg.body = render_template(template + '.txt', **kwargs)
+    msg.html = render_template(template + '.html', **kwargs)
+    thr = Thread(target=send_async_email,args=[app,msg])
+    thr.start()
+    return thr
+
+manager.add_command("shell",Shell(make_context = make_shell_context))
+manager.add_command('db',MigrateCommand)
+
+# 定义Role和User模型
+class Role(db.Model):
+    __tablename__ = 'roles'
+    id = db.Column(db.Integer,primary_key=True)
+    name = db.Column(db.String(64),unique=True)
+    users = db.relationship('User',backref='role')
+
+    def __repr__(self):
+        return '<Role %r>' %self.name
+
+class User(db.Model):
+    __tablename__ = 'users'   
+    id = db.Column(db.Integer,primary_key=True)
+    username = db.Column(db.String(64),unique=True,index=True)
+    password = db.Column(db.String(64))
+    role_id = db.Column(db.Integer,db.ForeignKey('roles.id'))
+
+    def __repr__(self):
+        return '<User %r>' %self.username
 
 class omniSearch(Form):
     searchText = StringField(validators=[Required()])
@@ -47,6 +112,8 @@ class LoginForm(Form):
     username = StringField(validators=[Required()])
     password = PasswordField(validators=[Required()])
     submit = SubmitField('Login in')
+
+
 
 @app.route('/',methods=['GET','POST'])
 def index():
@@ -110,17 +177,41 @@ def index():
 
 @app.route('/login',methods=['GET','POST'])
 def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        old_name = session.get('username')
-        if old_name is not None and old_name != form.username.data:
-            flash('Looks like you have changed your name!')
-        session['username'] = form.username.data
-        session['password'] = form.password.data
-        return redirect(url_for('index'))
-    return render_template('login.html',form = form)
+    try:
+        form = LoginForm()
+        if form.validate_on_submit():
+            user = User.query.filter_by(username=form.username.data).first()
+            if user is None:
+                user = User(username = form.username.data,password = form.password.data)
+                db.session.add(user)
+                session['known'] = False
+                if app.config['FLASKY_ANDMIN']:
+                    send_email(app.config['FLASKY_ANDMIN'],'NEW User',\
+                               'mail/new_user',user=user)
+                    return 'send'
+            else :
+                session['known'] = True
+            session['username'] = form.username.data
+            session['password'] = form.password.data
+            form.username.data = ''
+            form.password.data = ''
+            return redirect(url_for('login'))
+        return render_template('login.html',form = form,name = session.get('username'),\
+            known = session.get('known',False))
+    except Exception as e:
+        logging.exception(e)
 
 
+    # @app.route("/mail")
+# def ok():
+# 	msg = Message(
+#               'Hello',
+# 	       sender='huan_zhong2@126.com',
+# 	       recipients=
+#                ['13251183@bjtu.edu.cn'])
+# 	msg.body = "This is the email body"
+# 	mail.send(msg)
+# 	return "Sent"
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    manager.run()   # 服务器由manager.run() 启动，启动后就能解析命令行
