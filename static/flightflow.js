@@ -30,7 +30,7 @@ window.onload = function(){
     var projection = d3.geo.mercator()
                         .center([107, 31])
                         .scale(800)
-                        .translate([600, 600]);
+                        .translate([500, 600]);
 
     var path = d3.geo.path().projection(projection);
 
@@ -101,7 +101,9 @@ window.onload = function(){
         //插入一个圆
         location.append("circle")
             .attr("r",function (d,i) {
-                return d.flow;
+                if (d.flow > 900)
+                    return 25;
+                return d.flow/30;
             })
             .on("mouseover",mouseover)
             .on("mouseout",mouseout);

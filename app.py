@@ -188,21 +188,30 @@ def login():
                 if app.config['FLASKY_ANDMIN']:
                     send_email(app.config['FLASKY_ANDMIN'],'NEW User',\
                                'mail/new_user',user=user)
-                    return 'send'
             else :
                 session['known'] = True
             session['username'] = form.username.data
             session['password'] = form.password.data
             form.username.data = ''
             form.password.data = ''
-            return redirect(url_for('login'))
+            return redirect(url_for('index'))
         return render_template('login.html',form = form,name = session.get('username'),\
             known = session.get('known',False))
     except Exception as e:
         logging.exception(e)
 
 
-    # @app.route("/mail")
+@app.route('/register')
+def register():
+    return render_template('register.html')
+
+
+@app.route('/flow')
+def flow():
+    return render_template('flow.html')
+
+
+# @app.route("/mail")
 # def ok():
 # 	msg = Message(
 #               'Hello',

@@ -4,8 +4,8 @@
     {% block head %}
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %} - FlightFlow</title>
-    <link rel="icon" href="../app/static/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="../app/static/flightflow.css">
+    <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="../static/flightflow.css">
     {% endblock %}
 </head>
 
@@ -15,7 +15,7 @@
         <header>
             <div class="headerTop flex-center">   
                 <div class="logoLeft">
-                    <a href="#"><img src="../app/static/flight.png" alt="flightflow" class="flightIcon"></a>
+                    <a href="#"><img src="../static/flight.png" alt="flightflow" class="flightIcon"></a>
                 </div>
 
                 <div class="headerSearchForm flex-center">
@@ -60,9 +60,9 @@
 
             <div class="headerBottom">
                 <nav class="navigation flex-center">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Flow</a></li>
-                    <li><a href="login.html">登陆/</a><a href="register.html">注册</a></li>
+                    <li><a href="{{url_for('index')}}">Home</a></li>
+                    <li><a href="{{url_for('flow')}}">Flow</a></li>
+                    <li><a href="{{url_for('login')}}">登陆/</a><a href="{{url_for('register')}}">注册</a></li>
                     <li><a href="#">
                         {% if name %}
                             {{ name }}
@@ -84,7 +84,7 @@
         </div>
         {% endblock %}
         {% block script %}
-          <script src="../app/static/flightflow.js"></script>
+        	<script src="../static/flightflow.js"></script>
         {% endblock %}
     {% endblock %}
 </body>
