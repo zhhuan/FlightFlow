@@ -188,6 +188,9 @@ def login():
                 if app.config['FLASKY_ANDMIN']:
                     send_email(app.config['FLASKY_ANDMIN'],'NEW User',\
                                'mail/new_user',user=user)
+                    form.username.data = ''
+                    form.password.data = ''
+                    return redirect(url_for('login'))
             else :
                 session['known'] = True
             session['username'] = form.username.data

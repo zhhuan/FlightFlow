@@ -1,20 +1,25 @@
-from flask import Flask,render_template
+import os
+from app import create_app,db
+from app.models import User,Role
+from flask_script import Manager,Shell
+from flask_migrate import Migrate,MigrateCommand
 
-app = Flask(__name__)
+app = create_app(os.getenv('FLASK_CONFIG') or 'default')
+manager = Manager(app)
+migrate = Migrate(app)
 
-@app.route('/timetable')
-def timetable():
-    rows_one = [('UAL455','B739','San Francisco Intl (SFO)','00:13 PST','01:13 PST'),
-              ('UAL455', 'B739', 'San Francisco Intl (SFO)', '00:13 PST', '01:13 PST')]
-    rows_two = [('WJA1118', 'B738','Toronto Pearson Intl (YYZ)','22:44 EST','00:48 PST'),
-                ('ROU1853',' A319','Toronto Pearson Intl (YYZ)','22:57 EST','00:50 PST')]
-    rows_three = [('ROU1854',' 01:48 PST','08:19 EST','100'),
-                  ('HAL17','01:57 PST','06:26 HST','97')]
-    return render_template('timetable.html',rows_one = rows_one,rows_two = rows_two,rows_three=rows_three)
+def make_shell_context():
+    return dict(app=app, db=db, User=User, Role=Role)
 
-@app.route('/')
-def flightflow():
-    return render_template('flightflow.html')
+manager.add_command("shell",Shell(make_context=make_shell_context()))
+manager.add_command("db",MigrateCommand)
+
+@manager.command
+def test():
+    """Run the unit tests."""
+    import unittest
+    tests = unittest.TestLoader().discover('tests')
+    unittest.TestTestRunner(verbosity = 2).run(tests)
 
 if __name__ == '__main__':
-    app.run()
+    manager.run()

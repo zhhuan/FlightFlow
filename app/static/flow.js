@@ -1,7 +1,7 @@
 ;(function() {
   'use strict';
 
-  var data = Array.apply(0, Array(31)).map(function(item, i) {
+  var data = Array.apply(0, Array(30)).map(function(item, i) {
    i++;
    return {date: '2016-12-' + (i < 10 ? '0' + i : i), pv: parseInt(Math.random() * 400 + 900)}
   });
@@ -243,28 +243,28 @@
       document.body.removeChild(svgElem);
       switch (optionValue){
           case "北京":
-              data = Array.apply(0, Array(31)).map(function(item, i) {
+              data = Array.apply(0, Array(30)).map(function(item, i) {
                   i++;
               return {date: '2016-12-' + (i < 10 ? '0' + i : i), pv: parseInt(Math.random() * 400 + 900)}
               });
               reshow();
               break;
           case "上海":
-              data = Array.apply(0, Array(31)).map(function(item, i) {
+              data = Array.apply(0, Array(30)).map(function(item, i) {
                   i++;
               return {date: '2016-12-' + (i < 10 ? '0' + i : i), pv: parseInt(Math.random() * 800 + 900)}
               });
               reshow();
               break;
           case "广州":
-              data = Array.apply(0, Array(31)).map(function(item, i) {
+              data = Array.apply(0, Array(30)).map(function(item, i) {
                   i++;
               return {date: '2016-12-' + (i < 10 ? '0' + i : i), pv: parseInt(Math.random() * 500 + 900)}
               });
               reshow();
               break;
           case "深圳":
-              data = Array.apply(0, Array(31)).map(function(item, i) {
+              data = Array.apply(0, Array(30)).map(function(item, i) {
                   i++;
               return {date: '2016-12-' + (i < 10 ? '0' + i : i), pv: parseInt(Math.random() * 300 + 900)}
               });
