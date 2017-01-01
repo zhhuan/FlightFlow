@@ -62,14 +62,15 @@
                 <nav class="navigation flex-center">
                     <li><a href="{{url_for('main.index')}}">Home</a></li>
                     <li><a href="{{url_for('main.flow')}}">Flow</a></li>
-                    <li><a href="{{url_for('main.login')}}">登陆/</a><a href="{{url_for('main.register')}}">注册</a></li>
-                    <li><a href="#">
-                        {% if name %}
-                            {{ name }}
-                        {% else %}
-                            Stranger
-                        {% endif %}!</a>
-                    </li>
+
+                    {% if current_user.is_authenticated %}
+                    <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
+					<li><a href="#">{{current_user.username}}</a></li>
+                    {% else %}
+                    <li><a href="{{ url_for('auth.login') }}">Log In</a></li>
+					<li><a>Guest</a></li>
+                    {% endif %}
+
                 </nav>
             </div>
         </header>

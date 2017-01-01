@@ -69,40 +69,6 @@ def index():
                            name=session.get('username'))
 
 
-@main.route('/login', methods=['GET', 'POST'])
-def login():
-    try:
-        form = LoginForm()
-        if form.validate_on_submit():
-            user = User.query.filter_by(username=form.username.data).first()
-            if user is None:
-                user = User(username=form.username.data, password=form.password.data)
-                db.session.add(user)
-                session['known'] = False
-                if current_app.config['FLASKY_ANDMIN']:
-                    send_email(current_app.config['FLASKY_ANDMIN'], 'NEW User', \
-                               'mail/new_user', user=user)
-                    form.username.data = ''
-                    form.password.data = ''
-                    return redirect(url_for('.login'))
-            else:
-                session['known'] = True
-            session['username'] = form.username.data
-            session['password'] = form.password.data
-            form.username.data = ''
-            form.password.data = ''
-            return redirect(url_for('.index'))
-        return render_template('login.html', form=form, name=session.get('username'), \
-                               known=session.get('known', False))
-    except Exception as e:
-        logging.exception(e)
-
-
-@main.route('/register')
-def register():
-    return render_template('register.html')
-
-
 @main.route('/flow')
 def flow():
     return render_template('flow.html')

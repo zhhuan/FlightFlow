@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>register</title>
+	<link rel="stylesheet" type="text/css" href="../../static/register.css">
+</head>
+<body>
+	<p class="texto">Registor</p>
+	<div class="Registro">
+		<form method="post">
+			<span class="fontawesome-user"></span>{{ form.username(placeholder="username" autocomplete="off")}}
+			<span class="fontawesome-envelope-alt"></span>{{ form.email(id="email" required placeholder="email address" autocomplete="off")}}
+			<span class="fontawesome-lock"></span>{{ form.passpord(name="password" id="password" placeholder="password" autocomplete="off")}}
+			<span class="fontawesome-lock"></span>{{ form.password2(name="password" placeholder="Confirm Password" )}}
+			<input type="submit" value="Registrar" title="Registra tu cuenta">
+		</form>
+	</div>
+</body>
+</html>

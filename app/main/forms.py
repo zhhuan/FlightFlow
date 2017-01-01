@@ -1,19 +1,19 @@
-from flask_wtf import Form
+from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, BooleanField, PasswordField,SubmitField
-from wtforms.validators import Required, Length, Email, Regexp
+from wtforms.validators import DataRequired, Length, Email, Regexp
 from wtforms import ValidationError
 
 
-class omniSearch(Form):
-    searchText = StringField(validators=[Required()])
+class omniSearch(FlaskForm):
+    searchText = StringField(validators=[DataRequired()])
     submit = SubmitField('查询')
 
-class routeSearch(Form):
-    departure = StringField(validators=[Required()])
-    arrival = StringField(validators=[Required()])
+class routeSearch(FlaskForm):
+    departure = StringField(validators=[DataRequired()])
+    arrival = StringField(validators=[DataRequired()])
     submit = SubmitField('查询')
 
-class LoginForm(Form):
-    username = StringField(validators=[Required()])
-    password = PasswordField(validators=[Required()])
+class LoginForm(FlaskForm):
+    username = StringField(validators=[DataRequired()])
+    password = PasswordField(validators=[DataRequired()])
     submit = SubmitField('Login in')

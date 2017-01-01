@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>login</title>
+	<link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+	<link type="text/css" rel="stylesheet" href="../../static/login.css">
+</head>
+<body>
+	<div class="login">
+		<div class="log_reg_switch">
+			<span class="reg">注册</span>
+			<span class="log">登陆</span>
+		</div>
+
+		<form id="login" method="post" class="active">
+			{{loginform.hidden_tag() }}
+			{{loginform.csrf_token}}
+			{{loginform.email(placeholder="Email")}}
+			{{loginform.password(placeholder="Password")}}
+			{{loginform.remember_me(class="squaredThree")}}{{loginform.remember_me.label}}
+			{{loginform.submit(class="btn btn-primary btn-block btn-large")}}
+		</form>
+
+		<form id="register" method="post" class="hide">
+			{{registerform.hidden_tag() }}
+			{{registerform.csrf_token}}
+			{{registerform.email(placeholder="Email")}}
+			{{registerform.username(placeholder="Username")}}
+			{{registerform.password(placeholder="Password")}}
+			{{registerform.password2(placeholder="Confirm Password")}}
+			{{registerform.submit(class="btn btn-primary btn-block btn-large")}}
+		</form>
+	</div>
+<script src="../../static/login.js"></script>
+</body>
+</html>
